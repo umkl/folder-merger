@@ -2,8 +2,8 @@ import { promises as fs } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+const __dirname = process.cwd();
 const currentDirectory = __dirname;
 
 async function moveContents(srcDir, destDir) {
@@ -30,10 +30,11 @@ async function moveContents(srcDir, destDir) {
 
 export async function moveAllSubdirectoryContentsToCurrentDirectory() {
 	try {
+		console.log(currentDirectory);
 		const files = await fs.readdir(currentDirectory);
-
 		for (const file of files) {
 			const srcPath = path.join(currentDirectory, file);
+			console.log(srcPath);
 
 			const stat = await fs.stat(srcPath);
 
